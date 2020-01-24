@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 const TextBody = props => {
   return <Text style={{ ...styles.body, ...props.style }}>{props.children}</Text>;

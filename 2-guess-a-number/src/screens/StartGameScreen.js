@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
-
+import { Alert, Button, Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
-import colors from '../constants/colors';
 import TextBody from '../components/TextBody';
 import TextTitle from '../components/TextTitle';
+import colors from '../constants/colors';
 
 const StartGameScreen = props => {
   const [enteredValue, setEnteredValue] = useState('');
