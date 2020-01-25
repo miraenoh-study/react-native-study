@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Button, Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import ButtonMain from '../components/ButtonMain';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
@@ -42,7 +43,7 @@ const StartGameScreen = props => {
       <Card style={styles.summaryContainer}>
         <TextBody>You selected</TextBody>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button title='START GAME' onPress={() => props.onStartGame(selectedNumber)} />
+        <ButtonMain onPress={() => props.onStartGame(selectedNumber)}>START GAME</ButtonMain>
       </Card>
     );
   }
@@ -90,12 +91,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    marginVertical: 10
+    marginVertical: 15
   },
   inputContainer: {
     width: 300,
     maxWidth: '80%',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginVertical: 10
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 50,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   summaryContainer: {
     marginTop: 20,
