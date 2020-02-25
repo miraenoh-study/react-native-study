@@ -1,7 +1,7 @@
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Header from './src/components/Header';
 import GameOverScreen from './src/screens/GameOverScreen';
 import GameScreen from './src/screens/GameScreen';
@@ -61,10 +61,10 @@ export default function App() {
   }
 
   return (
-    <View style={styles.screen}>
-      <Header title='Guess A Number' />
-      {content}
-    </View>
+    <SafeAreaView style={styles.screen}>
+        <Header title='Guess A Number' />
+        {content}
+    </SafeAreaView>
   );
 }
 
