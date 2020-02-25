@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
-import ButtonMain from '../components/ButtonMain';
+import { Alert, StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import { ScreenOrientation } from 'expo';
+import ButtonMain from '../components/ButtonMain.android';
 import Card from '../components/Card';
 import NumberContainer from '../components/NumberContainer';
 import TextTitle from '../components/TextTitle';
-import TextBody from '../components/TextBody';
 
 const generateRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -26,15 +26,31 @@ const renderListItem = (listLength, itemData) => (
 );
 
 const GameScreen = props => {
+  // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+
   const initialGuess = generateRandomBetween(1, 100, userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
-  // const [rounds, setRounds] = useState(0);
+  const [availableWidth, setAvailableWidth] = useState(Dimensions.get('window').width);
+  const [availableHeight, setAvailableHeight] = useState(Dimensions.get('window').height);
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
   // Modern javascript syntax: object destructuring
   const { userChoice, onGameOver } = props;
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setAvailableWidth(Dimensions.get('window').width);
+      setAvailableHeight(Dimensions.get('window').height);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    };
+  });
 
   useEffect(() => {
     if (currentGuess === userChoice) {
@@ -64,11 +80,10 @@ const GameScreen = props => {
     setPastGuesses(curPastGuesses => [nextNumber.toString(), ...curPastGuesses]);
   };
 
-  return (
-    <View style={styles.screen}>
-      <TextTitle>Opponent's Guess</TextTitle>
+  let gameControls = availableHeight >= 500 ? (
+    <React.Fragment>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <Card style={styles.buttonContainer}>
+      <Card style={{ ...styles.buttonContainer, marginTop: availableHeight >= 500 ? 20 : 5 }}>
         <ButtonMain onPress={nextGuessHandler.bind(this, 'lower')}>
           <Ionicons name='md-remove' size={24} color='white' />
         </ButtonMain>
@@ -76,10 +91,24 @@ const GameScreen = props => {
           <Ionicons name='md-add' size={24} color='white' />
         </ButtonMain>
       </Card>
+    </React.Fragment>
+  ) : (
+    <View style={styles.controls}>
+      <ButtonMain onPress={nextGuessHandler.bind(this, 'lower')}>
+        <Ionicons name='md-remove' size={24} color='white' />
+      </ButtonMain>
+      <NumberContainer>{currentGuess}</NumberContainer>
+      <ButtonMain onPress={nextGuessHandler.bind(this, 'greater')}>
+        <Ionicons name='md-add' size={24} color='white' />
+      </ButtonMain>
+    </View>
+  );
+
+  return (
+    <View style={styles.screen}>
+      <TextTitle>Opponent's Guess</TextTitle>
+      {gameControls}
       <View style={styles.listContainer}>
-        {/* <ScrollView contentContainerStyle={styles.list}>
-          {pastGuesses.map((guess, index) => renderListItem(guess, pastGuesses.length - index))}
-        </ScrollView> */}
         <FlatList
           keyExtractor={item => item}
           data={pastGuesses}
@@ -100,13 +129,18 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 20,
     width: 400,
     maxWidth: '80%'
   },
+  controls: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
+    alignItems: 'center'
+  },
   listContainer: {
     flex: 1,
-    width: '60%'
+    width: Dimensions.get('window').width > 350 ? '60%' : '80%'
   },
   list: {
     flexGrow: 1,
