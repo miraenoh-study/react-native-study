@@ -10,7 +10,7 @@ import {
   ScrollView,
   KeyboardAvoidingView
 } from 'react-native';
-import ButtonMain from '../components/ButtonMain';
+import ButtonMain from '../components/ButtonMain.android';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';

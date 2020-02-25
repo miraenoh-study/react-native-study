@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
-import ButtonMain from '../components/ButtonMain';
+import { ScreenOrientation } from 'expo';
+import ButtonMain from '../components/ButtonMain.android';
 import Card from '../components/Card';
 import NumberContainer from '../components/NumberContainer';
 import TextTitle from '../components/TextTitle';
@@ -25,6 +26,8 @@ const renderListItem = (listLength, itemData) => (
 );
 
 const GameScreen = props => {
+  // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+
   const initialGuess = generateRandomBetween(1, 100, userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
@@ -100,7 +103,7 @@ const GameScreen = props => {
       </ButtonMain>
     </View>
   );
-  
+
   return (
     <View style={styles.screen}>
       <TextTitle>Opponent's Guess</TextTitle>

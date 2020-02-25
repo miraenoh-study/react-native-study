@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
-import ButtonMain from '../components/ButtonMain';
+import ButtonMain from '../components/ButtonMain.android';
 import TextBody from '../components/TextBody';
 import TextTitle from '../components/TextTitle';
 import colors from '../constants/colors';
