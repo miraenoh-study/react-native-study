@@ -9,6 +9,7 @@ const CategoriesScreen = props => {
       <Button title='Go to Meals!' onPress={() => {
         props.navigation.navigate({routeName: 'CategoryMeals'});
         // props.navigation.navigate('CategoryMeals'); <- Alternative
+        // props.navigation.replace('CategoryMeals'); <- replacing the screen (not with stack)
       }} />
     </View>
   );
