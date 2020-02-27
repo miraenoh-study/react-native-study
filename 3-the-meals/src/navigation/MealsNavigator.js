@@ -24,7 +24,8 @@ const defaultStackNavOptions = {
         }
       : {},
   headerTitleStyle: {
-    fontFamily: 'sf-bold'
+    fontFamily: 'sf-bold',
+    maxWidth: 250
   },
   headerBackTitleStyle: {
     fontFamily: 'sf'
