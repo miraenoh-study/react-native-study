@@ -33,12 +33,8 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 150,
     borderRadius: 10,
-    overflow: 'hidden',
-    // shadowColor: 'black',
-    // shadowOpacity: 0.2,
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowRadius: 5,
-    // elevation: 10
+    overflow: Platform.OS === 'android' && Platform.Version >= 21 ? 'hidden' : 'visible',
+    elevation: 10
   },
   container: {
     flex: 1,
@@ -46,6 +42,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     borderRadius: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
   },
   title: {
     fontFamily: 'sf-bold',
