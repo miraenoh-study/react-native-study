@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MealList from '../components/MealList';
+import DrawerButton from '../components/DrawerButton';
 
 import { MEALS } from '../data/dummy-data';
 
@@ -10,8 +11,11 @@ const FavoritesScreen = props => {
   return <MealList listData={favMeals} navigation={props.navigation} />;
 };
 
-FavoritesScreen.navigationOptions = {
-  headerTitle: 'Your Favorites'
+FavoritesScreen.navigationOptions = navData => {
+  return {
+    headerTitle: 'Your Favorites',
+    headerLeft: () => <DrawerButton navigation={navData.navigation} />
+  };
 };
 
 export default FavoritesScreen;
